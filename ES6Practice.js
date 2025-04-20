@@ -258,12 +258,12 @@ class StudentDB {
                 reject("Name is not valid.");
             }
             else{
-                this.CheckExistItem(Student)
-                .then((result) => {
-                    setTimeout(() => {
+                setTimeout(() => {
+                    this.CheckExistItem(Student)
+                    .then((result) => {
                         try {
                             if (result) {
-                                 return this.GetByName(Student);
+                                    return this.GetByName(Student);
                             } else {
                                 reject("Name dont exists in the database.");
                             }
@@ -271,15 +271,15 @@ class StudentDB {
                         catch (error) {
                             reject(`There was an error Delete information. Error Text : ${error}`);
                         }
-                    } , 1000)
-                })
-                .then((Student) => {
-                        this.DataBase.delete(Student.Name);
-                        resolve("Delete data is successfully");
                     })
-                .catch((error) => {
-                        reject(error);
-                })
+                    .then((Student) => {
+                            this.DataBase.delete(Student.Name);
+                            resolve("Delete data is successfully");
+                        })
+                    .catch((error) => {
+                            reject(error);
+                    })
+                } , 1000)
             }
         });
     }
