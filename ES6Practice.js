@@ -143,41 +143,132 @@ M2P2Button.addEventListener('click' , (e) => {
 
 /* Practice (3) */
 
-// class Student {
-//     constructor(name , score){
-//         this.name = name;
-//         this.score = score;
-//     }
-// }
+class Student {
+    constructor(name , score){
+        this.Name = name;
+        this.Score = score;
+    }
+}
+class StudentDB {
+    constructor(){
+        this.DataBase = new Map();
+    }
+    CheckValidData(Student){
+        return new Promise((resolve , reject) => {
+            if (Student.Score === null || isNaN(Student.Score)) {
+                reject("Score is not valid.");
+            }
+            else if(Student.Name === '' || Student.Name === null){
+                reject("Name is not valid.");
+            }
+            else if (Student.Score < 0) {
+                reject("Score cannot be less than 0.");
+            } else if (Student.Score > 20) {
+                reject("Score cannot be higher than 20.");
+            } else {
+                resolve(Student);
+            }
+        });
+    }
+    CheckExistItem (Student){
+        return new Promise((resolve , reject) => {
+            setTimeout(() => {
+                try {
+                    if (this.DataBase.size > 0) {
+                        const exist = Array.from(this.DataBase.keys()).some(k => k.toLowerCase() === Student.Name.toLowerCase());
+                        resolve(exist);
+                    }else{
+                        resolve(false);
+                    }
+                }
+                catch (error) {
+                    reject(`There was an error Checking information. Error Text : ${error}`);
+                }
+            } , 2000)
+            });
+    }
+    AddItemToDataBase(Student){
+        return new Promise((resolve , reject) => {
+            this.CheckExistItem(Student)
+            .then((result) => {
+                setTimeout(() => {
+                    try {
+                        if (!result) {
+                            console.log(Student);
+                            this.DataBase.set(Student.Name , Student.Score);
+                            resolve("Add data is successfully");
+                        } else {
+                            reject("Key already exists in the database.");
+                        }
+                    }
+                    catch (error) {
+                        reject(`There was an error adding information. Error Text : ${error}`);
+                    }
+                } , 1000)
+            })
+            .catch((error) => {
+                    reject(error);
+            })
+        });
+    }
+    UpdateItemToDataBase(Student){
+        return new Promise((resolve , reject) => {
+            this.CheckExistItem(Student)
+            .then((result) => {
+                setTimeout(() => {
+                    try {
+                        if (result) {
+                            this.DataBase.set(Student.Name , Student.Score);
+                            resolve("Update data is successfully");
+                        } else {
+                            reject("Key dont exists in the database.");
+                        }
+                    }
+                    catch (error) {
+                        reject(`There was an error Update information. Error Text : ${error}`);
+                    }
+                } , 1000)
+            })
+            .catch((error) => {
+                    reject(error);
+            })
+        });
+    }
+    DeleteItemToDataBase(Student){
+        return new Promise((resolve , reject) => {
+            if(Student.Name === '' || Student.Name === null){
+                reject("Name is not valid.");
+            }
+            else{
+                this.CheckExistItem(Student)
+                .then((result) => {
+                    setTimeout(() => {
+                        try {
+                            if (result) {
+                                this.DataBase.delete(Student.Name);
+                                resolve("Delete data is successfully");
+                            } else {
+                                reject("Name dont exists in the database.");
+                            }
+                        }
+                        catch (error) {
+                            reject(`There was an error Delete information. Error Text : ${error}`);
+                        }
+                    } , 1000)
+                })
+                .catch((error) => {
+                        reject(error);
+                })
+            }
+        });
+    }
 
-// class StudentDB {
-//     constructor(){
-//         this.MapList = new Map();
-//     }
-//     CheckValidData(Student){
-//         return new Promise(function(resolve , reject) {
-//             if (Score === null || isNaN(Score)) {
-//                 reject("Score is not valid.");
-//             }
-//             else if(Name === '' || Name === null){
-//                 reject("Name is not valid.");
-//             }
-//             else if (Score < 0) {
-//                 reject("Score cannot be less than 0.");
-//             } else if (Score > 20) {
-//                 reject("Score cannot be higher than 20.");
-//             } else {
-//                 resolve({Name , Score});
-//             }
-//         });
-//     }
-// }
+    get GetDatabase(){
+        return this.DataBase;
+    }
+}
 
 
-
-
-
-const scoreList = new Map()
 
 function TableItamCreator(Name , Value) {
     const TableItem = document.createElement("tr");
@@ -243,125 +334,8 @@ function ShowMessage(button , message , color , ID){
         button.textContent = "";
     }, 5000);
 }
-
-
-function CheckValidData(Score , Name){
-    return new Promise(function(resolve , reject) {
-        if (Score === null || isNaN(Score)) {
-            reject("Score is not valid.");
-        }
-        else if(Name === '' || Name === null){
-            reject("Name is not valid.");
-        }
-        else if (Score < 0) {
-            reject("Score cannot be less than 0.");
-        } else if (Score > 20) {
-            reject("Score cannot be higher than 20.");
-        } else {
-            resolve({Name , Score});
-        }
-    });
-}
-
-function checkExistItem (ListItem , key){
-    return new Promise(function(resolve , reject) {
-        setTimeout(() => {
-            try {
-                if (ListItem.size > 0) {
-                    const Keys = new Set();
-                    for (const [KeyLI] of ListItem) {
-                        Keys.add(KeyLI.toLowerCase());
-                    }
-                    resolve(Keys.has(key.toLowerCase()));
-                }else{
-                    resolve(false);
-                }
-            }
-            catch (error) {
-                reject(`There was an error Checking information. Error Text : ${error}`);
-            }
-        } , 2000)
-        });
-}
-
-function addItemToDataBase(ListItem , key , value){
-    return new Promise((resolve , reject) => {
-        checkExistItem(ListItem , key)
-        .then((result) => {
-            setTimeout(() => {
-                try {
-                    if (!result) {
-                        ListItem.set(key, value);
-                        resolve("Add data is successfully");
-                    } else {
-                        reject("Key already exists in the database.");
-                    }
-                }
-                catch (error) {
-                    reject(`There was an error adding information. Error Text : ${error}`);
-                }
-            } , 1000)
-        })
-        .catch((error) => {
-                reject(error);
-        })
-    });
-}
-
-function UpdateItemToDataBase(ListItem , key , value){
-    return new Promise((resolve , reject) => {
-        checkExistItem(ListItem , key)
-        .then((result) => {
-            setTimeout(() => {
-                try {
-                    if (result) {
-                        ListItem.set(key, value);
-                        resolve("Update data is successfully");
-                    } else {
-                        reject("Key dont exists in the database.");
-                    }
-                }
-                catch (error) {
-                    reject(`There was an error Update information. Error Text : ${error}`);
-                }
-            } , 1000)
-        })
-        .catch((error) => {
-                reject(error);
-        })
-    });
-}
-function DeleteItemToDataBase(ListItem , Name){
-    return new Promise((resolve , reject) => {
-        if(Name === '' || Name === null){
-            reject("Name is not valid.");
-        }
-        else{
-            checkExistItem(ListItem , Name)
-            .then((result) => {
-                setTimeout(() => {
-                    try {
-                        if (result) {
-                            ListItem.delete(Name);
-                            resolve("Delete data is successfully");
-                        } else {
-                            reject("Name dont exists in the database.");
-                        }
-                    }
-                    catch (error) {
-                        reject(`There was an error Delete information. Error Text : ${error}`);
-                    }
-                } , 1000)
-            })
-            .catch((error) => {
-                    reject(error);
-            })
-        }
-    });
-}
-
-
 let MessageID = null;
+
 
 /* (1) */
 const M1P3AddButton = document.getElementById("M1P3AddButton");
@@ -370,6 +344,7 @@ const M1P3MessageBox = document.getElementById("M1P3MessageBox");
 const M1P3UpdateButton = document.getElementById("M1P3UpdateButton");
 const M1P3DeleteButton = document.getElementById("M1P3DeleteButton");
 
+const StudentDBOj = new StudentDB();
 
 
 M1P3AddButton.addEventListener('click' ,(e) => {
@@ -377,13 +352,15 @@ M1P3AddButton.addEventListener('click' ,(e) => {
 
     const M1P3Name = String(document.getElementById("M1P3Name").value).trim();
     const M1P3Score = document.getElementById("M1P3Score").value === '' ? null : Number(document.getElementById("M1P3Score").value);
-    CheckValidData(M1P3Score , M1P3Name)
-    .then((value) => {
-        return addItemToDataBase(scoreList , value.Name , value.Score);
+    const StudentOb = new Student(M1P3Name , M1P3Score);
+
+    StudentDBOj.CheckValidData(StudentOb)
+    .then((Student) => {
+        return StudentDBOj.AddItemToDataBase(Student);
     })
     .then((result) => {
         MessageID = ShowMessage(M1P3MessageBox , result , 'green' , MessageID);
-        refreshTable(M1P3AddDataTable, scoreList);
+        refreshTable(M1P3AddDataTable, StudentDBOj.GetDatabase);
     })
     .catch((err) => {
         MessageID = ShowMessage(M1P3MessageBox , err , 'red' , MessageID);
@@ -395,13 +372,15 @@ M1P3UpdateButton.addEventListener('click' ,(e) => {
 
     const M1P3Name = String(document.getElementById("M1P3Name").value).trim();
     const M1P3Score = document.getElementById("M1P3Score").value === '' ? null : Number(document.getElementById("M1P3Score").value);
-    CheckValidData(M1P3Score , M1P3Name)
-    .then((value) => {
-        return UpdateItemToDataBase(scoreList , value.Name , value.Score);
+    const StudentOb = new Student(M1P3Name , M1P3Score);
+
+    StudentDBOj.CheckValidData(StudentOb)
+    .then((Student) => {
+        return StudentDBOj.UpdateItemToDataBase(Student);
     })
     .then((result) => {
         MessageID = ShowMessage(M1P3MessageBox , result , 'green' , MessageID);
-        refreshTable(M1P3AddDataTable, scoreList);
+        refreshTable(M1P3AddDataTable, StudentDBOj.GetDatabase);
     })
     .catch((err) => {
         MessageID = ShowMessage(M1P3MessageBox , err , 'red' , MessageID);
@@ -411,11 +390,14 @@ M1P3UpdateButton.addEventListener('click' ,(e) => {
 M1P3DeleteButton.addEventListener('click' ,(e) => {
     e.preventDefault();
     const M1P3Name = String(document.getElementById("M1P3Name").value).trim();
+    const M1P3Score = document.getElementById("M1P3Score").value === '' ? null : Number(document.getElementById("M1P3Score").value);
+    const StudentOb = new Student(M1P3Name , M1P3Score);
 
-    DeleteItemToDataBase(scoreList , M1P3Name)
+
+    StudentDBOj.DeleteItemToDataBase(StudentOb)
     .then((result) => {
         MessageID = ShowMessage(M1P3MessageBox , result , 'green' , MessageID);
-        refreshTable(M1P3AddDataTable, scoreList);
+        refreshTable(M1P3AddDataTable, StudentDBOj.GetDatabase);
     })
     .catch((err) => {
         MessageID = ShowMessage(M1P3MessageBox , err , 'red' , MessageID);
