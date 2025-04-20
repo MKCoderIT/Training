@@ -8,10 +8,79 @@
         .M1P1Inputs {
             width: 40px;
         }
+        #M1P3Score {
+            width: 70px;
+            padding: 4px;
+            margin-left: 2px;
+        }
+        #M1P3Name{
+            width: 225px;
+            padding: 4px;
+        }
+        #M1P3AddButton{
+            width: 150px;
+            padding: 4px 6px 4px 6px;
+        }
+        .M1P3OtherButton{
+            width: 236px;
+            padding: 4px 6px 4px 6px;
+            margin-left: 51px;
+        }
+        #M1P3ScoreTableForm{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            align-items: flex-start;
+        }
+        .M1P3Inputs{
+            margin-top: 10px;
+        }
+        table{
+            margin-top: 10px;
+            border-collapse: collapse;
+            border: 2px solid rgb(140 140 140);
+            border-radius: 2px;
+        }
+        thead,
+        tfoot {
+        background-color: rgb(228 240 245);
+        }
+
+        th,
+        td {
+        border: 1px solid rgb(160 160 160);
+        padding: 8px 10px;
+        }
+
+        td:not(td:last-of-type){
+        text-align: center;
+        align-items: center;
+        padding-bottom: 1.5px;
+        }
+        td:last-of-type{
+        text-align: center;
+        align-items: center;
+        }
+
+        tbody > tr:nth-of-type(even) {
+        background-color: rgb(237 238 242);
+        }
+
+        tfoot th {
+        text-align: right;
+        }
+
+        tfoot td {
+        font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
     <h1>ECMA Script 2015 Practice</h1>
+
+
     <div id="Largest_Number">
         <h3>1-(Largest Number Practice)</h3>
         <div id="Largest_Number1">
@@ -62,8 +131,10 @@
             </ul>
         </div>
     </div>
+
+
     <div id="Sum_Number">
-        <h3>1-(Sum Numbers Practice)</h3>
+        <h3>2-(Sum Numbers Practice)</h3>
         <div id="Sum_Number1">
             <h5>Method (1)</h5>
             <form>
@@ -91,6 +162,49 @@
             </ul>
         </div>
     </div>
+
+
+    <div id="ScoreTable">
+        <h3>3-(Score Table)</h3>
+        <div id="ScoreTable1">
+            <form id="M1P3ScoreTableForm">
+                <label for="M1P3Name">
+                    Name :
+                <input class="M1P3Inputs" id="M1P3Name" type="text">
+                </label>
+                <div>
+                    <label for="M1P3Score">
+                        Score :
+                        <input class="M1P3Inputs" id="M1P3Score" type="number">
+                    </label>
+                    <input class="M1P3Inputs" id="M1P3AddButton" type="submit" value="Add To Table">
+                </div>
+                <input class="M1P3Inputs M1P3OtherButton" id="M1P3UpdateButton" type="submit" value="Update Data Table">
+                <input class="M1P3Inputs M1P3OtherButton" id="M1P3DeleteButton" type="submit" value="Delete Data Table">
+            </form>
+
+            <table id="M1P3AddDataTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Users</th>
+                        <th scope="col"> Good</th>
+                        <th scope="col">Normal</th>
+                        <th scope="col">Bad</th>
+                        <th scope="col">Reject</th>
+                        <th scope="col">Scores</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <th scope="row" colspan="5">Avreage Score</th>
+                    <td></td>
+                </tfoot>
+            </table>
+                <p id="M1P3MessageBox"></p>
+        </div>
+    </div>
+
     <script src="ES6Practice.js"></script>
 </body>
 </html>

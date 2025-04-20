@@ -142,56 +142,286 @@ M2P2Button.addEventListener('click' , (e) => {
 })
 
 /* Practice (3) */
-const scoreList = [20,20,18,14,19,11,14,16,9,10];
 
-/* (1) */
-const ResultObject1 = scoreList.reduce((acc, value) => {
-    if (value >= 18) {
-        acc.Good_score.push(value);
-    } else if (value >= 15) {
-        acc.Normal_score.push(value);
-    } else if (value >= 10) {
-        acc.Bad_score.push(value);
-    } else {
-        acc.reject_score.push(value);
-    }
-    return acc;
-}, {
-    Good_score: [],
-    Normal_score: [],
-    Bad_score: [],
-    reject_score: []
-});
+// class Student {
+//     constructor(name , score){
+//         this.name = name;
+//         this.score = score;
+//     }
+// }
+
+// class StudentDB {
+//     constructor(){
+//         this.MapList = new Map();
+//     }
+//     CheckValidData(Student){
+//         return new Promise(function(resolve , reject) {
+//             if (Score === null || isNaN(Score)) {
+//                 reject("Score is not valid.");
+//             }
+//             else if(Name === '' || Name === null){
+//                 reject("Name is not valid.");
+//             }
+//             else if (Score < 0) {
+//                 reject("Score cannot be less than 0.");
+//             } else if (Score > 20) {
+//                 reject("Score cannot be higher than 20.");
+//             } else {
+//                 resolve({Name , Score});
+//             }
+//         });
+//     }
+// }
 
 
-/* (2) */
-const ResultObject2 = {
-    Good_score : [],
-    Normal_score : [],
-    Bad_score : [],
-    reject_score : [],
-};
 
-for (const value of scoreList) {
+
+
+const scoreList = new Map()
+
+function TableItamCreator(Name , Value) {
+    const TableItem = document.createElement("tr");
+    const th = document.createElement("th")
+    th.setAttribute('scope' , 'row');
+    th.textContent = Name;
+    TableItem.appendChild(th);
+
+    let Position;
     switch (true) {
-        case (value >= 18):
-            ResultObject2.Good_score.push(value);
+        case Value >= 18:
+            Position = 1;
             break;
-        case (value >= 15):
-            ResultObject2.Normal_score.push(value);
-            break;
-        case (value >= 10):
-            ResultObject2.Bad_score.push(value);
-            break;
-        default :
-            ResultObject2.reject_score.push(value);
+        case Value >= 15:
+            Position = 2;
+        break;
+        case Value >= 10:
+            Position = 3;
+        break;
+        default:
+            Position = 4;
             break;
     }
+    for (let index = 1; index <= 4; index++) {
+        let td = document.createElement("td");
+        if (index == Position) {
+            td.style.backgroundColor = "#a3d3a2";
+            td.textContent = "*";
+        } else {
+            td.textContent = "";
+        }
+        TableItem.appendChild(td);
+    }
+
+
+
+    const td = document.createElement("td")
+    td.textContent = Value;
+    TableItem.appendChild(td);
+
+    return TableItem;
+}
+function refreshTable (Table , ListItem){
+    Table.querySelector('tbody').innerHTML = '';
+
+    let averageScore = 0;
+    for (const [name , value] of ListItem) {
+        Table.querySelector('tbody').appendChild(TableItamCreator(name, value));
+        averageScore += value;
+    }
+
+    averageScore /= ListItem.size;
+    Table.querySelector('tfoot td').textContent = averageScore.toFixed(2);
+}
+function ShowMessage(button , message , color , ID){
+    if (ID != null) {
+        clearTimeout(ID);
+    }
+    button.style.color = color;
+    button.textContent = message;
+    return setTimeout(() => {
+        MessageID = null;
+        button.textContent = "";
+    }, 5000);
 }
 
-//result
-console.log(ResultObject1);
-console.log(ResultObject2);
+
+function CheckValidData(Score , Name){
+    return new Promise(function(resolve , reject) {
+        if (Score === null || isNaN(Score)) {
+            reject("Score is not valid.");
+        }
+        else if(Name === '' || Name === null){
+            reject("Name is not valid.");
+        }
+        else if (Score < 0) {
+            reject("Score cannot be less than 0.");
+        } else if (Score > 20) {
+            reject("Score cannot be higher than 20.");
+        } else {
+            resolve({Name , Score});
+        }
+    });
+}
+
+function checkExistItem (ListItem , key){
+    return new Promise(function(resolve , reject) {
+        setTimeout(() => {
+            try {
+                if (ListItem.size > 0) {
+                    const Keys = new Set();
+                    for (const [KeyLI] of ListItem) {
+                        Keys.add(KeyLI.toLowerCase());
+                    }
+                    resolve(Keys.has(key.toLowerCase()));
+                }else{
+                    resolve(false);
+                }
+            }
+            catch (error) {
+                reject(`There was an error Checking information. Error Text : ${error}`);
+            }
+        } , 2000)
+        });
+}
+
+function addItemToDataBase(ListItem , key , value){
+    return new Promise((resolve , reject) => {
+        checkExistItem(ListItem , key)
+        .then((result) => {
+            setTimeout(() => {
+                try {
+                    if (!result) {
+                        ListItem.set(key, value);
+                        resolve("Add data is successfully");
+                    } else {
+                        reject("Key already exists in the database.");
+                    }
+                }
+                catch (error) {
+                    reject(`There was an error adding information. Error Text : ${error}`);
+                }
+            } , 1000)
+        })
+        .catch((error) => {
+                reject(error);
+        })
+    });
+}
+
+function UpdateItemToDataBase(ListItem , key , value){
+    return new Promise((resolve , reject) => {
+        checkExistItem(ListItem , key)
+        .then((result) => {
+            setTimeout(() => {
+                try {
+                    if (result) {
+                        ListItem.set(key, value);
+                        resolve("Update data is successfully");
+                    } else {
+                        reject("Key dont exists in the database.");
+                    }
+                }
+                catch (error) {
+                    reject(`There was an error Update information. Error Text : ${error}`);
+                }
+            } , 1000)
+        })
+        .catch((error) => {
+                reject(error);
+        })
+    });
+}
+function DeleteItemToDataBase(ListItem , Name){
+    return new Promise((resolve , reject) => {
+        if(Name === '' || Name === null){
+            reject("Name is not valid.");
+        }
+        else{
+            checkExistItem(ListItem , Name)
+            .then((result) => {
+                setTimeout(() => {
+                    try {
+                        if (result) {
+                            ListItem.delete(Name);
+                            resolve("Delete data is successfully");
+                        } else {
+                            reject("Name dont exists in the database.");
+                        }
+                    }
+                    catch (error) {
+                        reject(`There was an error Delete information. Error Text : ${error}`);
+                    }
+                } , 1000)
+            })
+            .catch((error) => {
+                    reject(error);
+            })
+        }
+    });
+}
+
+
+let MessageID = null;
+
+/* (1) */
+const M1P3AddButton = document.getElementById("M1P3AddButton");
+const M1P3AddDataTable = document.getElementById("M1P3AddDataTable");
+const M1P3MessageBox = document.getElementById("M1P3MessageBox");
+const M1P3UpdateButton = document.getElementById("M1P3UpdateButton");
+const M1P3DeleteButton = document.getElementById("M1P3DeleteButton");
+
+
+
+M1P3AddButton.addEventListener('click' ,(e) => {
+    e.preventDefault();
+
+    const M1P3Name = String(document.getElementById("M1P3Name").value).trim();
+    const M1P3Score = document.getElementById("M1P3Score").value === '' ? null : Number(document.getElementById("M1P3Score").value);
+    CheckValidData(M1P3Score , M1P3Name)
+    .then((value) => {
+        return addItemToDataBase(scoreList , value.Name , value.Score);
+    })
+    .then((result) => {
+        MessageID = ShowMessage(M1P3MessageBox , result , 'green' , MessageID);
+        refreshTable(M1P3AddDataTable, scoreList);
+    })
+    .catch((err) => {
+        MessageID = ShowMessage(M1P3MessageBox , err , 'red' , MessageID);
+    });
+
+})
+M1P3UpdateButton.addEventListener('click' ,(e) => {
+    e.preventDefault();
+
+    const M1P3Name = String(document.getElementById("M1P3Name").value).trim();
+    const M1P3Score = document.getElementById("M1P3Score").value === '' ? null : Number(document.getElementById("M1P3Score").value);
+    CheckValidData(M1P3Score , M1P3Name)
+    .then((value) => {
+        return UpdateItemToDataBase(scoreList , value.Name , value.Score);
+    })
+    .then((result) => {
+        MessageID = ShowMessage(M1P3MessageBox , result , 'green' , MessageID);
+        refreshTable(M1P3AddDataTable, scoreList);
+    })
+    .catch((err) => {
+        MessageID = ShowMessage(M1P3MessageBox , err , 'red' , MessageID);
+    });
+
+})
+M1P3DeleteButton.addEventListener('click' ,(e) => {
+    e.preventDefault();
+    const M1P3Name = String(document.getElementById("M1P3Name").value).trim();
+
+    DeleteItemToDataBase(scoreList , M1P3Name)
+    .then((result) => {
+        MessageID = ShowMessage(M1P3MessageBox , result , 'green' , MessageID);
+        refreshTable(M1P3AddDataTable, scoreList);
+    })
+    .catch((err) => {
+        MessageID = ShowMessage(M1P3MessageBox , err , 'red' , MessageID);
+    });
+
+})
 
 /* Practice (4) */
 /* (1) */
@@ -204,3 +434,48 @@ const Bugatti = {
 
 const {Brand , Model : Madel , Color , PrintCar} = Bugatti;
 console.log(Brand , Madel , Color , PrintCar(Bugatti));
+
+
+/* Practice (5) Symbol*/
+
+const secretCode = {
+    code : null,
+    setCode(value){
+        this.code = value.match(/\d+/g) || 0;
+    },
+    [Symbol.match](){
+        return `(${this.code})💀ACCESS GRANTED💀`
+    },
+}
+const secret = "This is my secret code: 1337";
+secretCode.setCode(secret);
+
+//
+
+/* Practice (6) CallBack and Iterator*/
+class Customer {
+    constructor(name , username , products = []){
+        this.name = name;
+        this.username = username;
+        this.products = products;
+    }
+    set addProduct (productName){
+        this.products.push(productName);
+    }
+    get returnProduct (){
+        return this.products.entries();
+    }
+    *[Symbol.iterator](){
+            for (let i = 0; i < this.products.length; i++) {
+                    yield this.products[i];
+
+            }
+        }
+    }
+    const cr1 = new Customer("Ali" , "AliX123" , ['pencile' , 'pen']);
+    cr1.addProduct = 'laptob';
+    cr1.addProduct = 'mouse';
+
+    for (const element of cr1) {
+        console.log(element);
+    }
