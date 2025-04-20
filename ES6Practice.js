@@ -151,7 +151,7 @@ class Student {
 }
 class StudentDB {
     constructor(){
-        this.DataBase = new Map();
+        this.DataBase = new Map([['Ali Ahmadi' , 20],['Mohsen Nafar' , 8],['Hosein Riazi' , 12],['Nima Heidari' , 19]]);
     }
     CheckValidData(Student){
         return new Promise((resolve , reject) => {
@@ -184,8 +184,24 @@ class StudentDB {
                 catch (error) {
                     reject(`There was an error Checking information. Error Text : ${error}`);
                 }
-            } , 2000)
+            } , 500)
             });
+    }
+    GetByName(Student){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                try {
+                    for (const [name , score] of this.DataBase) {
+                        if (name.toLowerCase() === Student.Name.toLowerCase()) {
+                            Student.Name = name;
+                            resolve(Student);
+                        }
+                    }
+                } catch (error) {
+                    reject(`There was an error Get Name for information. Error Text : ${error}`);
+                }
+            } , 1000)
+        })
     }
     AddItemToDataBase(Student){
         return new Promise((resolve , reject) => {
@@ -194,7 +210,6 @@ class StudentDB {
                 setTimeout(() => {
                     try {
                         if (!result) {
-                            console.log(Student);
                             this.DataBase.set(Student.Name , Student.Score);
                             resolve("Add data is successfully");
                         } else {
@@ -213,13 +228,12 @@ class StudentDB {
     }
     UpdateItemToDataBase(Student){
         return new Promise((resolve , reject) => {
-            this.CheckExistItem(Student)
-            .then((result) => {
-                setTimeout(() => {
+            setTimeout(() => {
+                this.CheckExistItem(Student)
+                .then((result) => {
                     try {
                         if (result) {
-                            this.DataBase.set(Student.Name , Student.Score);
-                            resolve("Update data is successfully");
+                            return this.GetByName(Student);
                         } else {
                             reject("Key dont exists in the database.");
                         }
@@ -227,11 +241,15 @@ class StudentDB {
                     catch (error) {
                         reject(`There was an error Update information. Error Text : ${error}`);
                     }
-                } , 1000)
-            })
-            .catch((error) => {
-                    reject(error);
-            })
+                })
+                .then((Student) => {
+                    this.DataBase.set(Student.Name , Student.Score);
+                    resolve("Update data is successfully");
+                })
+                .catch((error) => {
+                    reject(`There was an error Update information. Error Text : ${error}`);
+                })
+            } , 1000)
         });
     }
     DeleteItemToDataBase(Student){
@@ -245,8 +263,7 @@ class StudentDB {
                     setTimeout(() => {
                         try {
                             if (result) {
-                                this.DataBase.delete(Student.Name);
-                                resolve("Delete data is successfully");
+                                 return this.GetByName(Student);
                             } else {
                                 reject("Name dont exists in the database.");
                             }
@@ -256,6 +273,10 @@ class StudentDB {
                         }
                     } , 1000)
                 })
+                .then((Student) => {
+                        this.DataBase.delete(Student.Name);
+                        resolve("Delete data is successfully");
+                    })
                 .catch((error) => {
                         reject(error);
                 })
@@ -345,7 +366,7 @@ const M1P3UpdateButton = document.getElementById("M1P3UpdateButton");
 const M1P3DeleteButton = document.getElementById("M1P3DeleteButton");
 
 const StudentDBOj = new StudentDB();
-
+refreshTable(M1P3AddDataTable, StudentDBOj.GetDatabase);
 
 M1P3AddButton.addEventListener('click' ,(e) => {
     e.preventDefault();
@@ -390,8 +411,7 @@ M1P3UpdateButton.addEventListener('click' ,(e) => {
 M1P3DeleteButton.addEventListener('click' ,(e) => {
     e.preventDefault();
     const M1P3Name = String(document.getElementById("M1P3Name").value).trim();
-    const M1P3Score = document.getElementById("M1P3Score").value === '' ? null : Number(document.getElementById("M1P3Score").value);
-    const StudentOb = new Student(M1P3Name , M1P3Score);
+    const StudentOb = new Student(M1P3Name);
 
 
     StudentDBOj.DeleteItemToDataBase(StudentOb)
