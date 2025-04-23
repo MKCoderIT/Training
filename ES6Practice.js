@@ -452,8 +452,6 @@ const secretCode = {
 const secret = "This is my secret code: 1337";
 secretCode.setCode(secret);
 
-//
-
 /* Practice (6) CallBack and Iterator*/
 class Customer {
     constructor(name , username , products = []){
