@@ -2,14 +2,27 @@
 <html>
     <head>
         <title>training HTML</title>
+        <link rel="stylesheet" href="../Font_Folder/Vazir/Font.css">
+        <link rel="stylesheet" href="../Font_Folder/IRANSans/Font.css">
+        <link rel="stylesheet" href="../Font_Folder/YekanBakh/Font.css">
+        <link rel="stylesheet" href="Reset.css">
+        <link rel="stylesheet" href="CssPractice.css">
     </head>
     <body>
-        <h1>this is heading number 1</h1>
+        <h1 class="Heading-number1">this is heading number 1</h1>
         <h2>this is heading number 2</h2>
         <h3>this is heading number 3</h3>
         <h4>this is heading number 4</h4>
         <h5>this is heading number 5</h5>
         <h6>this is heading number 6</h6>
+
+        <h1 class="Heading-number1">این یک عنوان شماره 1</h1>
+        <h2>این یک عنوان شماره 2</h2>
+        <h3>این یک عنوان شماره 3</h3>
+        <h4>این یک عنوان شماره 4</h4>
+        <h5>این یک عنوان شماره 5</h5>
+        <h6>این یک عنوان شماره 6</h6>
+
         <hr>
         <p>this is a page that teaches us how to use links in HTML, <a href="https://www.w3schools.com/html/html_basic.asp">click here to use it</a> </p>
         <img src="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax/grumpy-cat-small.png" alt="difinition of a tag" width="500px" height="200px">
@@ -62,65 +75,38 @@
         <hr>
         <br>
 
-        <form action="#">
-            <label for="1">
-                input text :
-                <input id="1" type="text">
-            </label>
+        <form action="./HTMLPractice.html">
+            <label for="1">input text : </label>
+                <input id="1" type="text" name="text"><br><br>
 
-            <br><br>
+            <label for="2">input password : </label>
+                <input id="2" type="password" name="password"><br><br>
 
-            <label for="2">
-                input password :
-                <input id="2" type="password">
-            </label>
+            <label for="3">input email : </label>
+                <input id="3" type="email" name="email"><br><br>
 
-            <br><br>
+            <label for="4">input date : </label>
+                <input id="4" type="date" name="date"><br><br>
 
-            <label for="3">
-                input email :
-                <input id="3" type="email">
-            </label>
-
-            <br><br>
-
-            <label for="4">
-                input date :
-                <input id="4" type="date">
-            </label>
-
-            <br><br>
-
-            <label for="5">
-                select item :
-                <select id="5">
+            <label for="5">select item : </label>
+                <select id="5" name="select">
                     <option value="item1">item 1</option>
                     <option value="item2">item 2</option>
                     <option value="item3">item 3</option>
-                </select>
-            </label>
+                </select><br><br>
 
-            <br><br>
+            <label for="6">textarea : </label>
+                <textarea  id="6" name="texteareaBox"></textarea><br><br>
 
-            <label for="6">
-                textarea :
-                <textarea  id="6" name="texteareaBox"></textarea>
-            </label>
+            <label for="7">radio 1 :</label>
+                <input id="7" type="radio" name="radio" value="radio1">
+            <label for="8">radio 2 :</label>
+                <input id="8" type="radio" name="radio" value="radio2">
+            <label for="9">radio 3 :</label>
+                <input id="9" type="radio" name="radio" value="radio3"><br><br>
 
-            <br><br>
-
-            <label for="7">
-                radio 1 :
-                <input id="7" type="radio" name="radio">
-            </label>
-            <label for="8"></label>
-                radio 2 :
-                <input id="8" type="radio" name="radio">
-            </label>
-            <label for="9"></label>
-                radio 3 :
-                <input id="9" type="radio" name="radio">
-            </label>
+            <label for="10">Checkbox :</label>
+                <input id="10" type="checkbox" name="checkbox">
 
             <br><br>
 

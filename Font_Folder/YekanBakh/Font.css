@@ -1,0 +1,169 @@
+/* Yekan Bakh Font-Face(Css Code) */
+
+
+/* Yekan Bakh */
+
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 100;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-Thin/YekanBakh-Thin.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-Thin/YekanBakh-Thin.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-Thin/YekanBakh-Thin.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 300;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-light/YekanBakh-Light.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-light/YekanBakh-Light.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-light/YekanBakh-Light.ttf) format('truetype');
+
+}
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 400;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-Regular/YekanBakh-Regular.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-Regular/YekanBakh-Regular.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-Regular/YekanBakh-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 600;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-SemiBold/YekanBakh-SemiBold.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-SemiBold/YekanBakh-SemiBold.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-SemiBold/YekanBakh-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 700;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-Bold/YekanBakh-Bold.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-Bold/YekanBakh-Bold.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-Bold/YekanBakh-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 800;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-ExtraBold/YekanBakh-ExtraBold.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-ExtraBold/YekanBakh-ExtraBold.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-ExtraBold/YekanBakh-ExtraBold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 900;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-Black/YekanBakh-Black.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-Black/YekanBakh-Black.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-Black/YekanBakh-Black.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakh;
+	font-style: normal;
+	font-weight: 950;
+    font-display: swap;
+	src: url(./File/YekanBakh/YekanBakh-ExtraBlack/YekanBakh-ExtraBlack.woff2) format('woff2'),
+	     url(./File/YekanBakh/YekanBakh-ExtraBlack/YekanBakh-ExtraBlack.woff) format('woff'),
+         url(./File/YekanBakh/YekanBakh-ExtraBlack/YekanBakh-ExtraBlack.ttf) format('truetype');
+}
+
+/* Yekan Bakh FaNum */
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 100;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-Thin/YekanBakhFaNum-Thin.woff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-Thin/YekanBakhFaNum-Thin.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-Thin/YekanBakhFaNum-Thin.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 300;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-light/YekanBakhFaNum-Light.woff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-light/YekanBakhFaNum-Light.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-light/YekanBakhFaNum-Light.ttf) format('truetype');
+
+}
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 400;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-Regular/YekanBakhFaNum-Regular.woff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-Regular/YekanBakhFaNum-Regular.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-Regular/YekanBakhFaNum-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 600;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-SemiBold/YekanBakhFaNum-SemiBold.woff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-SemiBold/YekanBakhFaNum-SemiBold.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-SemiBold/YekanBakhFaNum-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 700;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-Bold/YekanBakhFaNum-Bold.woff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-Bold/YekanBakhFaNum-Bold.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-Bold/YekanBakhFaNum-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 800;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-ExtraBold/YekanBakhFaNum-ExtraBoldwoff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-ExtraBold/YekanBakhFaNum-ExtraBold.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-ExtraBold/YekanBakhFaNum-ExtraBold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 900;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-Black/YekanBakhFaNum-Black.woff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-Black/YekanBakhFaNum-Black.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-Black/YekanBakhFaNum-Black.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: YekanBakhFaNum;
+	font-style: normal;
+	font-weight: 950;
+    font-display: swap;
+	src: url(./File/YekanBakhFaNum/YekanBakhFaNum-ExtraBlack/YekanBakhFaNum-ExtraBlack.woff2) format('woff2'),
+	     url(./File/YekanBakhFaNum/YekanBakhFaNum-ExtraBlack/YekanBakhFaNum-ExtraBlack.woff) format('woff'),
+         url(./File/YekanBakhFaNum/YekanBakhFaNum-ExtraBlack/YekanBakhFaNum-ExtraBlack.ttf) format('truetype');
+}
